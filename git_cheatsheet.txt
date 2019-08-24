@@ -1,0 +1,136 @@
+========================================================================================
+
+git reset .src/main.py	=> from staging to working tree
+git reset --hard		=> Remove from working tree also, removes the changes for only tracked file
+git reset --soft "earlier commit id"		=> This will place all changes to staging area again 
+git clean -fd .		=> Remove the changes for untracked files
+git rm test/mai.py		=> directly removes file and allow for commit
+git reset --hard
+git add --all		=> to add all files that are untracked
+git commit -m "login feature"
+git add .			=> for current directory changes
+git add -u 		=> add only tracked file and not for untracked file
+
+git add .
+git commit -m "added logout"
+git status 
+
+setup repo on github
+=> default name of repo is origin
+
+git config --global user.name "vijaylondhe"
+git config --global user.email "vijay.londhe815@gmail.com"
+git remote add origin https://github.com/vijaylondhe/testrepo.git	=> add remote repo to your local system
+git push origin master	=> push the changes from local repo to remote repo
+
+==================================================================
+Example: Merge/Conflict
+
+mkdir git_zone
+cd git_zone
+mkdir user1_repo
+mkdir user2_repo
+cd user1_repo
+git init 
+git config --global user.name "vijaylondhe"
+git config --global user.email "vijay.londhe815@gmail.com"
+
+mkdir src
+mkdir test
+vi src/main.py
+#This is file from user1
+
+git status 
+git add src/main.py
+git commit -m "This is my initial commit"
+
+git status 
+git log 
+
+vi src/main.py 
+#This is file from user1
+#This line is used for testing soft reset 
+
+git add src/main.py
+git commit -m "This is second commit"
+git status 
+git log 
+
+git reset --soft "id_of_second_commit"
+git log
+git status 
+===> u will see your files at staging/index area
+
+git reset src/main.py
+===> this will place ur files from staging/index area to working tree
+
+git reset --hard 
+===> this will remove changes from file...i.e it will remove second line from main.py
+
+git remote add origin https://github.com/vijaylondhe/user_repo.git
+git push origin master	=> push the changes from local repo to remote repo
+
+git branch -r 
+git branch 
+git branch REL_1.0
+git branch
+git branch -r 
+git checkout REL_1.0
+
+vi src/main.py 
+#This is file from user1
+#This line is used for testing merging conflict
+
+git add src/main.py
+git commit -m "This is commit for version REL1.0.1"
+git log
+git branch
+git status 
+git push origin REL_1.0
+
+
+==========> from user2 open power shell
+git pull
+git branch
+git checkout REL_1.0
+ls -l
+cat src/main.py
+git branch
+git branch -r
+git log 
+
+
+==========> from user 1 git bash
+vi src/main.py
+#This is main.py from user1
+#This line is added to test merge conflict scenarios
+#This line is for final testing
+
+git add -u 
+git commit -m "This is fianl commit from user1"
+git push origin REL_1.0
+
+==========> from user 2 power shell
+
+vi src/main.py
+#This is main.py from user1
+#This line is added to test merge conflict scenarios
+#This is welcome message from user2
+
+git add -u 
+git commit -m "This is fianl commit from user2"
+git push origin REL_1.0
+====xxxxx u will get error states that updates are rejected
+
+git pull 
+====u will recieve merge conflict message in src/main.py file 
+
+open src/main.py file and do changes u required see head and commit id compare files
+
+git add src/main.yml
+git commit -m "This is final commit to resolve merge conflict from user2"
+git push origin REL_1.0
+
+
+************************************************************************
+
